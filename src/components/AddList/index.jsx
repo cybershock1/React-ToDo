@@ -1,10 +1,17 @@
-import React, { Fragment } from "react";
-import List from "./List";
+import React, { useState } from "react";
+import List from "../List";
 
-const AddButtonList = () => {
+import Badge from "../Badge";
+
+import "./AddButtonList.scss";
+
+const AddList = ({ colors }) => {
+  const [visiblePopup, setVisiblePopup] = useState(false);
+
   return (
-    <Fragment>
+    <div className="add-list">
       <List
+        onClick={() => setVisiblePopup(true)}
         items={[
           {
             className: "list__add-button",
@@ -37,11 +44,20 @@ const AddButtonList = () => {
         ]}
       />
 
-      <div className="add-list-popup">
-        <h1>123</h1>
-      </div>
-    </Fragment>
+      {visiblePopup && (
+        <div className="add-list__popup">
+          <input className="field" type="text" placeholder="Название списка" />
+          <div className="add-list__popup-colors">
+            <ul>
+              <li><Badge color="green" /></li>
+              <li></li>
+            </ul>
+          </div>
+          <button className="button">Добавить</button>
+        </div>
+      )}
+    </div>
   );
 };
 
-export default AddButtonList;
+export default AddList;
